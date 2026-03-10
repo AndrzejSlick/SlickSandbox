@@ -1,4 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { DemoBookingDialog } from "@/components/DemoBookingDialog";
 
 export function Navbar() {
   return (
@@ -18,14 +21,14 @@ export function Navbar() {
           >
             Wypróbuj za darmo
           </Button>
-          <Button
-            className="h-10 px-4 rounded-xl text-[15px] font-semibold text-white shadow-[0px_1px_4px_0px_rgba(37,99,235,0.3)] hover:opacity-85"
-            style={{
-              background: "#2563EB",
-            }}
-          >
-            Umów demo
-          </Button>
+          <DemoBookingDialog>
+            <button
+              className="inline-flex items-center justify-center h-10 px-4 rounded-xl text-[15px] font-semibold text-white shadow-[0px_1px_4px_0px_rgba(37,99,235,0.3)] hover:opacity-85 cursor-pointer"
+              style={{ background: "#2563EB" }}
+            >
+              Umów demo
+            </button>
+          </DemoBookingDialog>
         </div>
       </div>
     </header>

@@ -1,3 +1,7 @@
+"use client";
+
+import { DemoBookingDialog } from "@/components/DemoBookingDialog";
+
 export function Hero() {
   return (
     <section className="w-full pt-10 pb-14 md:pt-16 md:pb-20 text-center">
@@ -28,13 +32,14 @@ export function Hero() {
           >
             Wypróbuj Slick AI
           </a>
-          <a
-            href="https://app.slickshift.ai/?tab=plan-order"
-            className="w-full sm:w-auto inline-flex items-center justify-center h-11 px-5 rounded-xl text-[15px] font-semibold text-white shadow-[0px_1px_4px_0px_rgba(37,99,235,0.3)] hover:opacity-85 transition-opacity"
-            style={{ background: "#2563EB" }}
-          >
-            Umów demo
-          </a>
+          <DemoBookingDialog>
+            <button
+              className="w-full sm:w-auto inline-flex items-center justify-center h-11 px-5 rounded-xl text-[15px] font-semibold text-white shadow-[0px_1px_4px_0px_rgba(37,99,235,0.3)] hover:opacity-85 transition-opacity cursor-pointer"
+              style={{ background: "#2563EB" }}
+            >
+              Umów demo
+            </button>
+          </DemoBookingDialog>
         </div>
       </div>
     </section>

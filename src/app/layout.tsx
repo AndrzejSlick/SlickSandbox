@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Geist } from "next/font/google";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,8 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
+      <head>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
+      </head>
       <body className={`${inter.variable} ${geist.variable} antialiased`}>
         {children}
+        <Toaster />
+        <CookieConsentBanner />
       </body>
     </html>
   );

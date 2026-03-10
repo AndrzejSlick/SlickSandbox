@@ -4,13 +4,11 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { sendDemoEmail } from "@/app/actions/sendDemo";
-
-type Status = "idle" | "sending" | "success" | "error";
+import { toast } from "sonner";
 
 export function Demo() {
   const [form, setForm] = useState({ name: "", company: "", email: "", phone: "" });
-  const [status, setStatus] = useState<Status>("idle");
+  const [sending, setSending] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,13 +16,30 @@ export function Demo() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus("sending");
+    setSending(true);
     try {
-      await sendDemoEmail(form);
-      setStatus("success");
+      const res = await fetch("https://skills.slickshift.ai/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          companyName: form.company,
+          email: form.email,
+          phone: form.phone,
+          skill: "homepage",
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to submit");
       setForm({ name: "", company: "", email: "", phone: "" });
+      toast("Mamy Twój kontakt 🙌", {
+        description: "Odezwiemy się do Ciebie wkrótce.",
+      });
     } catch {
-      setStatus("error");
+      toast("Wystąpił błąd", {
+        description: "Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.",
+      });
+    } finally {
+      setSending(false);
     }
   }
 
@@ -67,23 +82,12 @@ export function Demo() {
             <Input id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange} required />
           </div>
 
-          {status === "success" && (
-            <p className="text-[14px] text-[#2d6e16] font-medium text-center">
-              Dziękujemy! Odezwiemy się wkrótce.
-            </p>
-          )}
-          {status === "error" && (
-            <p className="text-[14px] text-red-500 font-medium text-center">
-              Coś poszło nie tak. Napisz do nas na alex@slickshift.ai
-            </p>
-          )}
-
           <Button
             type="submit"
-            disabled={status === "sending"}
+            disabled={sending}
             className="mt-2 w-full h-[44px] bg-gradient-to-b from-[#1e1e28] to-[#141317] border border-[#333335] rounded-xl text-white text-[15px] font-semibold hover:opacity-90 disabled:opacity-60"
           >
-            {status === "sending" ? "Wysyłanie..." : "Umów demo ›"}
+            {sending ? "Wysyłanie..." : "Umów demo ›"}
           </Button>
         </form>
 
