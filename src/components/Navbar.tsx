@@ -15,12 +15,12 @@ export function Navbar() {
 
         {/* CTA buttons */}
         <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className="hidden md:flex h-10 px-4 rounded-xl text-[15px] font-semibold border-[#e6e6eb] text-[#020a0f] bg-white hover:opacity-85 hover:bg-white"
+          <a
+            href="https://app.slickshift.ai/slick-ai"
+            className="hidden md:flex items-center justify-center h-10 px-4 rounded-xl text-[15px] font-semibold border border-[#e6e6eb] text-[#020a0f] bg-white hover:opacity-85"
           >
             Wypróbuj za darmo
-          </Button>
+          </a>
           <DemoBookingDialog>
             <button
               className="inline-flex items-center justify-center h-10 px-4 rounded-xl text-[15px] font-semibold text-white shadow-[0px_1px_4px_0px_rgba(37,99,235,0.3)] hover:opacity-85 cursor-pointer"

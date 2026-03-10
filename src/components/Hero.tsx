@@ -27,7 +27,7 @@ export function Hero() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto px-6 sm:px-0">
           <a
-            href="https://app.slickshift.ai/?tab=plan-order"
+            href="https://app.slickshift.ai/slick-ai"
             className="w-full sm:w-auto inline-flex items-center justify-center h-11 px-5 rounded-xl text-[15px] font-semibold border border-[#e6e6eb] text-[#020a0f] bg-white hover:opacity-85 transition-opacity"
           >
             Wypróbuj Slick AI
