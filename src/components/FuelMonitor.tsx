@@ -4,7 +4,7 @@ import { FleetStatusWidget } from "./FleetStatusWidget";
 
 export function FuelMonitor() {
   return (
-    <section className="w-full py-14 md:py-24">
+    <section id="fleet-status" className="w-full py-14 md:py-24">
       <div className="max-w-[1140px] mx-auto px-4 flex flex-col md:flex-row items-center gap-10 md:gap-16">
 
         {/* ── Left: text content ── */}

@@ -152,6 +152,7 @@ export function UseCases() {
             <Button
               variant="outline"
               className="h-10 px-4 rounded-xl text-[15px] font-semibold border-[#e6e6eb] text-[#020a0f] bg-white hover:opacity-85 hover:bg-white"
+              onClick={() => document.getElementById("fleet-status")?.scrollIntoView({ behavior: "smooth" })}
             >
               Poznaj platformę
             </Button>
