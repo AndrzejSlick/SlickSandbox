@@ -85,7 +85,8 @@ export function Demo() {
           <Button
             type="submit"
             disabled={sending}
-            className="mt-2 w-full h-[44px] bg-gradient-to-b from-[#1e1e28] to-[#141317] border border-[#333335] rounded-xl text-white text-[15px] font-semibold hover:opacity-90 disabled:opacity-60"
+            className="mt-2 w-full h-[44px] rounded-xl text-[15px] font-semibold text-white hover:opacity-85 disabled:opacity-60"
+            style={{ background: "#2563EB" }}
           >
             {sending ? "Wysyłanie..." : "Umów demo ›"}
           </Button>
