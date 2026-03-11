@@ -21,14 +21,12 @@ export function ExtraKm() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI wykrywa<br />każdy objazd
+              Kontrola Realizacji Tras
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              Slick AI monitoruje trasę w czasie rzeczywistym i natychmiast
-              wykrywa odchylenia od planu. Każdy nadrobiony kilometr to koszt
-              paliwa i czasu — teraz masz nad nim kontrolę.
+              Nadrobione kilometry to ukryty koszt — paliwo, czas, opłaty drogowe. AI monitoruje trasę vs plan, a gdy kierowca zboczy — pyta o powód i koryguje na bieżąco, zanim straty urosną.
             </p>
 
           </div>

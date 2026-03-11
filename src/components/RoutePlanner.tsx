@@ -21,14 +21,12 @@ export function RoutePlanner() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI automatycznie<br />śledzi czasy pracy
+              Wykorzystanie każdej godziny kierowcy
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              Slick AI automatycznie śledzi czasy pracy i ostrzega zanim kierowca
-              zbliży się do limitu. Koniec z ręcznym sprawdzaniem tachografu
-              i ryzykiem kosztownych mandatów.
+              Niewykorzystane godziny kierowców to stracone kilometry i przychód. AI śledzi czasy pracy z tacho, przypomina kierowcy o przerwach i limitach, a dyspozytor dostaje alert tylko gdy trzeba przeorganizować trasę.
             </p>
 
           </div>

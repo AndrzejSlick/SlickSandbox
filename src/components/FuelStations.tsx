@@ -21,14 +21,12 @@ export function FuelStations() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI znajdzie<br />najtańsze paliwo
+              Optymalizacja Paliwa
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              Slick AI analizuje trasy i ceny paliwa w czasie rzeczywistym,
-              sugeruje najtańszą stację na trasie i porównuje dostawców
-              z rabatami. Kierowca dostaje wskazówki zanim wyjedzie za drogo.
+              Różnice w cenach paliwa między stacjami to tysiące euro miesięcznie. AI analizuje trasy i ceny w czasie rzeczywistym, wysyłając kierowcy sugestię najtańszej stacji na trasie.
             </p>
 
           </div>

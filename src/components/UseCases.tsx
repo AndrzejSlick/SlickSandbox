@@ -4,16 +4,14 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 const ITEMS = [
-  "Widoczność floty",
-  "Czasy pracy kierowców",
-  "Dokumenty CMR",
-  "Lieferschein",
-  "Procedury",
-  "Mandaty",
-  "Monitorowanie cen paliwa",
-  "Administracja",
-  "Parsowanie zleceń",
-  "Nadrobione kilometry",
+  "Statusowanie bez dzwonienia",
+  "Wykorzystanie każdej godziny kierowcy",
+  "Weryfikacja Dokumentów",
+  "Przestrzeganie Procedur",
+  "Redukcja Mandatów",
+  "Optymalizacja Paliwa",
+  "Automatyzacja Administracji",
+  "Kontrola Realizacji Tras",
 ];
 
 const DWELL_MS = 1400;

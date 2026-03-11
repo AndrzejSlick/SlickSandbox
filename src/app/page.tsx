@@ -11,6 +11,7 @@ import { FuelStations } from "@/components/FuelStations";
 import { Administration } from "@/components/Administration";
 import { ExtraKm } from "@/components/ExtraKm";
 import { Highlights } from "@/components/Highlights";
+import { Integrations } from "@/components/Integrations";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { Demo } from "@/components/Demo";
@@ -32,6 +33,7 @@ export default function Home() {
       <FuelStations />
       <Administration />
       <ExtraKm />
+      <Integrations />
       <Highlights />
       <Testimonials />
       <FAQ />

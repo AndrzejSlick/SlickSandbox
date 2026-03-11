@@ -21,14 +21,12 @@ export function FuelMonitor() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI śledzi<br />pozycje aut
+              Statusowanie bez dzwonienia
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              Slick AI śledzi pozycje aut i zgłasza tylko anomalie — opóźnienia,
-              postoje, brak kontaktu z kierowcą. Koniec z ręcznym sprawdzaniem
-              statusów przez telefon.
+              AI monitoruje flotę automatycznie, a gdy coś wymaga uwagi — samo kontaktuje się z kierowcą i raportuje do biura tylko to, co naprawdę wymaga decyzji.
             </p>
           </div>
         </div>

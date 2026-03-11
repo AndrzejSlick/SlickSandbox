@@ -21,14 +21,12 @@ export function Administration() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI eliminuje<br />papierkową robotę
+              Automatyzacja Administracji
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              Automatyczne parsowanie zleceń z maili i PDF-ów, zbieranie danych
-              z GPS, tacho i TMS w jednym miejscu. Raporty generowane jednym
-              kliknięciem zamiast tygodnia pracy.
+              Przepisywanie zleceń z maili, przesyłanie danych do księgowości, tworzenie raportów — godziny pracy biura. AI parsuje zlecenia automatycznie i generuje raporty jednym kliknięciem.
             </p>
 
           </div>

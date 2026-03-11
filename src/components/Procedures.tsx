@@ -21,14 +21,12 @@ export function Procedures() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI<br />pilnuje procedur
+              Przestrzeganie Procedur
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              Slick AI pilnuje plomb celnych przy eksporcie do UK, zakazów ruchu
-              weekendowego AT/DE i specjalnych procedur ADR. Automatyczne
-              przypomnienia i geofencing zanim kierowca wyjedzie.
+              Dziesiątki procedur w zależności od kraju, towaru, klienta — łatwo o pomyłkę. AI pilnuje wymagań per transport i prowadzi kierowcę krok po kroku przez każdy załadunek i rozładunek.
             </p>
 
           </div>

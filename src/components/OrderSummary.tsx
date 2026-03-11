@@ -21,14 +21,12 @@ export function OrderSummary() {
 
             {/* Heading */}
             <h2 className="text-[36px] md:text-[48px] font-semibold leading-[1] text-foreground">
-              Slick AI weryfikuje<br />dokumenty za Ciebie
+              Weryfikacja Dokumentów
             </h2>
 
             {/* Body */}
             <p className="text-[17px] text-muted-foreground leading-[24px]">
-              OCR i automatyczna weryfikacja CMR oraz Lieferschein — pieczątki,
-              podpisy, zgodność z zleceniem. Slick AI wykrywa braki i sam
-              przypomina kierowcy o dosłaniu dokumentów.
+              Sprawdzanie CMR i Lieferschein po każdym transporcie pochłania czas zespołu. AI weryfikuje dokumenty automatycznie, wykrywa braki i samo przypomina kierowcy o uzupełnieniu — biuro widzi tylko kompletne dokumenty.
             </p>
 
           </div>
