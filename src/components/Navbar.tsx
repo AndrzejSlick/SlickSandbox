@@ -1,7 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import { DemoBookingDialog } from "@/components/DemoBookingDialog";
+
+const DemoBookingDialog = dynamic(
+  () => import("@/components/DemoBookingDialog").then((m) => m.DemoBookingDialog),
+  { ssr: false }
+);
 
 export function Navbar() {
   return (
