@@ -1,0 +1,6 @@
+.screen {
+  width: 1728px;
+  height: 964px;
+  background: #ffffff;
+  flex-shrink: 0;
+}
