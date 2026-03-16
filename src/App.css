@@ -1,6 +1,6 @@
 .screen {
   width: 1728px;
   height: 964px;
-  background: #ffffff;
+  background: var(--background);
   flex-shrink: 0;
 }
