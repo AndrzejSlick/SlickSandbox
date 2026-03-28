@@ -1,13 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import Map from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { Search, MoreVertical, Paperclip, Smile, ArrowUp, Plus, X, Phone, Car, ChevronDown, Locate, ShoppingCart, PackageCheck, AlarmClock } from 'lucide-react';
+import { Search, MoreVertical, Paperclip, Smile, ArrowUp, Plus, Phone, ChevronDown, Locate, ShoppingCart, PackageCheck, AlarmClock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-
-// ─── Asset URLs (from Figma) ──────────────────────────────────────────────────
-const IMG_AVATAR = 'https://www.figma.com/api/mcp/asset/e5d7ef7c-8591-4bd6-8465-e55dad69b1dc';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -30,14 +27,6 @@ const INITIAL_MESSAGES: Message[] = [
   { id: 6, role: 'me',     text: 'Ok, dzięki. Jedź ostrożnie!',                            time: '11:46', date: 'Yesterday' },
   { id: 7, role: 'driver', text: 'Jestem już za granicą, wszystko ok.',                    time: '14:22', date: 'Today' },
   { id: 8, role: 'me',     text: 'Super, daj znać jak dojedziesz na miejsce.',             time: '14:30', date: 'Today' },
-];
-
-// ─── Stops ────────────────────────────────────────────────────────────────────
-
-const STOPS = [
-  { id: 1, country: 'PL', zip: '30-123', city: 'Czerwionka', km: null, time: null, day: null, status: null },
-  { id: 2, country: 'PL', zip: '31-154', city: 'Kraków', km: '195 km', time: '11:30', day: 'Thu', status: 'On time' },
-  { id: 3, country: 'CZ', zip: '130 00', city: 'Vinohrady', km: '240 km', time: '15:00', day: 'Fri', status: 'On time' },
 ];
 
 // ─── Header ───────────────────────────────────────────────────────────────────
