@@ -1,222 +1,68 @@
+import React from "react";
+import {
+  SquareGanttChart,
+  MessageCircle,
+  Files,
+  Map,
+  BarChart3,
+  type LucideIcon,
+} from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
-// ─── Default icons ─────────────────────────────────────────────────────────────
-const URL_TIMELINE_DEFAULT   = "https://www.figma.com/api/mcp/asset/c223539f-f8a3-4efe-bf77-d73809af2d61";
-const URL_CHAT_DEFAULT       = "https://www.figma.com/api/mcp/asset/7b52c5fc-5429-41e6-b7d5-cb899bc2ff0e";
-const URL_CRM_DEFAULT        = "https://www.figma.com/api/mcp/asset/447331c8-a7bd-4223-8923-8e7be13fd675";
-const URL_FLEET_DEFAULT      = "https://www.figma.com/api/mcp/asset/5bdb11da-353b-495d-97d9-f43d3ef8662e";
-const URL_ROUTE_DEFAULT_1    = "https://www.figma.com/api/mcp/asset/ce7a4c5f-54e0-4b3a-a911-940de7d0b9b6";
-const URL_ROUTE_DEFAULT_2    = "https://www.figma.com/api/mcp/asset/63076f45-1cbc-42fe-9615-5eee6732ab26";
-const URL_REPORTS_DEFAULT    = "https://www.figma.com/api/mcp/asset/45665873-f1c4-4e4c-b1fd-71dad7cb8121";
-
-// ─── Active icons ──────────────────────────────────────────────────────────────
-const URL_TIMELINE_ACTIVE    = "https://www.figma.com/api/mcp/asset/8fe7bb99-831c-443e-83be-d96cf261a8e8";
-const URL_CHAT_ACTIVE        = "https://www.figma.com/api/mcp/asset/ed7f29fc-ce2e-4397-a759-edd961bbe053";
-const URL_CRM_ACTIVE         = "https://www.figma.com/api/mcp/asset/9a7a9731-df3b-4d50-94d8-8cd3b80bbacc";
-const URL_FLEET_ACTIVE_1     = "https://www.figma.com/api/mcp/asset/a6d7cab3-5f25-4d99-be77-6787f959ce16";
-const URL_FLEET_ACTIVE_2     = "https://www.figma.com/api/mcp/asset/fce24c16-9d43-4628-a85b-fd0c078e2a7b";
-const URL_ROUTE_ACTIVE_1     = "https://www.figma.com/api/mcp/asset/5a3d611d-c3b5-45a3-a416-531368cc7997";
-const URL_ROUTE_ACTIVE_2     = "https://www.figma.com/api/mcp/asset/1f5d00e2-d0d3-4d83-a73c-55a6abeacf6e";
-const URL_REPORTS_ACTIVE_1   = "https://www.figma.com/api/mcp/asset/ac9e05a1-2a60-48c7-ae09-703c34fdc0a6";
-const URL_REPORTS_ACTIVE_2   = "https://www.figma.com/api/mcp/asset/6be8938e-279e-4b68-bee3-6607665e08f6";
-
-// ─── Crossfade helper ──────────────────────────────────────────────────────────
-// Keeps both states in the DOM and fades between them — no DOM swap = no blink.
-function Crossfade({
-  active,
-  inactive: inactiveEl,
-  activeEl,
-}: {
-  active: boolean;
-  inactive: React.ReactNode;
-  activeEl: React.ReactNode;
-}) {
+// ─── Custom Timeline active icon ───────────────────────────────────────────────
+function TimelineActiveIcon({ className }: { className?: string }) {
   return (
-    <div className="relative size-5">
-      <div
-        className="absolute inset-0 transition-opacity duration-150 ease-in-out"
-        style={{ opacity: active ? 0 : 1 }}
-      >
-        {inactiveEl}
-      </div>
-      <div
-        className="absolute inset-0 transition-opacity duration-150 ease-in-out"
-        style={{ opacity: active ? 1 : 0 }}
-      >
-        {activeEl}
-      </div>
-    </div>
+    <svg
+      width="14" height="14" viewBox="0 0 17 17"
+      fill="none" xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M14.083 0C15.4177 0 16.5 1.0823 16.5 2.41699V14.083C16.5 15.4177 15.4177 16.5 14.083 16.5H2.41699C1.0823 16.5 0 15.4177 0 14.083V2.41699C0 1.0823 1.0823 0 2.41699 0H14.083ZM7.41699 10.835C7.15725 10.835 6.92757 10.9664 6.79297 11.167C6.71243 11.2865 6.66602 11.4309 6.66602 11.5859C6.66602 12.0002 7.0018 12.3359 7.41602 12.3359H11.583C11.8935 12.3358 12.1596 12.1469 12.2734 11.8779C12.3118 11.7879 12.333 11.689 12.333 11.585C12.333 11.1707 11.9972 10.835 11.583 10.835H7.41699ZM4.91699 7.50098C4.66884 7.50098 4.44999 7.6229 4.31348 7.80859C4.2216 7.93307 4.16602 8.08635 4.16602 8.25293C4.16619 8.66699 4.50191 9.00293 4.91602 9.00293H9.91602C10.2517 9.00293 10.5313 8.78064 10.627 8.47656C10.6496 8.40502 10.667 8.33002 10.667 8.25098C10.6668 7.83702 10.3309 7.50115 9.91699 7.50098H4.91699ZM5.75 4.16797C5.43899 4.16797 5.17224 4.35729 5.05859 4.62695C5.02057 4.7167 4.99907 4.81534 4.99902 4.91895C4.99902 5.33305 5.33496 5.66877 5.74902 5.66895H11.583C11.8936 5.66881 12.1596 5.48009 12.2734 5.21094C12.3117 5.12088 12.333 5.02199 12.333 4.91797C12.333 4.50376 11.9972 4.16797 11.583 4.16797H5.75Z"
+        fill="currentColor"
+      />
+    </svg>
   );
 }
 
-// ─── Icon primitives ───────────────────────────────────────────────────────────
-const IconTimeline = ({ active }: { active: boolean }) => (
-  <Crossfade
-    active={active}
-    inactive={
-      <div className="relative w-full h-full overflow-hidden">
-        <img src={URL_TIMELINE_DEFAULT} alt="" className="absolute block w-full h-full" />
-      </div>
-    }
-    activeEl={
-      <div className="relative w-full h-full overflow-hidden">
-        <img src={URL_TIMELINE_ACTIVE} alt="" className="absolute block w-full h-full" />
-      </div>
-    }
-  />
-);
-
-const IconChat = ({ active }: { active: boolean }) => (
-  <Crossfade
-    active={active}
-    inactive={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "12.47% 12.47% 8.33% 8.33%" }}>
-          <div className="absolute" style={{ inset: "-4.73% -4.73% -4.74% -4.74%" }}>
-            <img src={URL_CHAT_DEFAULT} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-    activeEl={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "12.47% 12.47% 8.33% 8.33%" }}>
-          <div className="absolute" style={{ inset: "-4.73% -4.73% -4.74% -4.74%" }}>
-            <img src={URL_CHAT_ACTIVE} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-  />
-);
-
-const IconCRM = ({ active }: { active: boolean }) => (
-  <Crossfade
-    active={active}
-    inactive={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "8.33% 16.67% 8.33% 12.5%" }}>
-          <div className="absolute" style={{ inset: "-4.5% -5.29%" }}>
-            <img src={URL_CRM_DEFAULT} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-    activeEl={
-      <div className="relative w-full h-full overflow-hidden">
-        <img src={URL_CRM_ACTIVE} alt="" className="absolute block w-full h-full" />
-      </div>
-    }
-  />
-);
-
-const IconFleet = ({ active }: { active: boolean }) => (
-  <Crossfade
-    active={active}
-    inactive={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "8.33%" }}>
-          <div className="absolute" style={{ inset: "-4.5%" }}>
-            <img src={URL_FLEET_DEFAULT} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-    activeEl={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "8.33%" }}>
-          <div className="absolute" style={{ inset: "-4.5%" }}>
-            <img src={URL_FLEET_ACTIVE_1} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-        <div className="absolute" style={{ inset: "11.46% 11.79% 10.25% 8.54%" }}>
-          <div className="absolute" style={{ inset: "-4.79% -4.71%" }}>
-            <img src={URL_FLEET_ACTIVE_2} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-  />
-);
-
-const IconRoute = ({ active }: { active: boolean }) => (
-  <Crossfade
-    active={active}
-    inactive={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "9.32% 16.67% 17.65% 8.33%" }}>
-          <div className="absolute" style={{ inset: "-5.13% -5%" }}>
-            <img src={URL_ROUTE_DEFAULT_1} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-        <div className="absolute" style={{ inset: "70.83% 4.17% 4.17% 70.83%" }}>
-          <div className="absolute" style={{ inset: "-15%" }}>
-            <img src={URL_ROUTE_DEFAULT_2} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-    activeEl={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "9.32% 16.67% 17.65% 8.33%" }}>
-          <div className="absolute" style={{ inset: "-5.13% -5%" }}>
-            <img src={URL_ROUTE_ACTIVE_1} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-        <div className="absolute" style={{ inset: "70.83% 4.17% 4.17% 70.83%" }}>
-          <div className="absolute" style={{ inset: "-15%" }}>
-            <img src={URL_ROUTE_ACTIVE_2} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-  />
-);
-
-const IconReports = ({ active }: { active: boolean }) => (
-  <Crossfade
-    active={active}
-    inactive={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "12.5%" }}>
-          <div className="absolute" style={{ inset: "-5%" }}>
-            <img src={URL_REPORTS_DEFAULT} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-    activeEl={
-      <div className="relative w-full h-full overflow-hidden">
-        <div className="absolute" style={{ inset: "12.5%" }}>
-          <div className="absolute" style={{ inset: "-5%" }}>
-            <img src={URL_REPORTS_ACTIVE_1} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-        <div className="absolute" style={{ inset: "20.83% 20.83% 29.17% 29.17%" }}>
-          <div className="absolute" style={{ inset: "-7.5%" }}>
-            <img src={URL_REPORTS_ACTIVE_2} alt="" className="block w-full h-full" />
-          </div>
-        </div>
-      </div>
-    }
-  />
-);
+// ─── Custom Fleet icon ─────────────────────────────────────────────────────────
+function FleetIcon({ className, strokeWidth = 1.75 }: { className?: string; strokeWidth?: number }) {
+  return (
+    <svg
+      width="16" height="16" viewBox="6 6 20 20"
+      fill="none" xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M23.9493 18.5013H20.166C19.724 18.5013 19.3001 18.6769 18.9875 18.9895C18.6749 19.302 18.4993 19.7259 18.4993 20.168V23.9513M11.8327 8.78471V10.168C11.8327 10.8311 12.0961 11.467 12.5649 11.9358C13.0338 12.4046 13.6696 12.668 14.3327 12.668C14.7747 12.668 15.1986 12.8436 15.5112 13.1562C15.8238 13.4688 15.9993 13.8927 15.9993 14.3347C15.9993 15.2514 16.7493 16.0014 17.666 16.0014C18.108 16.0014 18.532 15.8258 18.8445 15.5132C19.1571 15.2007 19.3327 14.7767 19.3327 14.3347C19.3327 13.418 20.0827 12.668 20.9993 12.668H23.641M15.1659 24.293V21.0013C15.1659 20.5593 14.9903 20.1354 14.6777 19.8228C14.3651 19.5102 13.9412 19.3346 13.4992 19.3346C13.0572 19.3346 12.6332 19.159 12.3207 18.8465C12.0081 18.5339 11.8325 18.11 11.8325 17.668V16.8346C11.8325 16.3926 11.6569 15.9687 11.3444 15.6561C11.0318 15.3436 10.6079 15.168 10.1659 15.168H7.70752M24.3327 16.0013C24.3327 20.6037 20.6017 24.3346 15.9993 24.3346C11.397 24.3346 7.66602 20.6037 7.66602 16.0013C7.66602 11.3989 11.397 7.66797 15.9993 7.66797C20.6017 7.66797 24.3327 11.3989 24.3327 16.0013Z"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 // ─── Nav items config ──────────────────────────────────────────────────────────
 type NavItemConfig = {
   id: string;
   label: string;
-  Icon: React.ComponentType<{ active: boolean }>;
+  Icon: LucideIcon | React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  ActiveIcon?: React.ComponentType<{ className?: string }>;
+  fillOnActive?: boolean;
 };
 
 const NAV_ITEMS: NavItemConfig[] = [
-  { id: "timeline", label: "Timeline",      Icon: IconTimeline },
-  { id: "chat",     label: "Chat",           Icon: IconChat     },
-  { id: "crm",      label: "CRM",            Icon: IconCRM      },
-  { id: "fleet",    label: "Fleet overview", Icon: IconFleet    },
-  { id: "route",    label: "Plan route",     Icon: IconRoute    },
-  { id: "reports",  label: "Reports",        Icon: IconReports  },
+  { id: "chat",     label: "Chat",          Icon: MessageCircle,    fillOnActive: true },
+  { id: "timeline", label: "Timeline",      Icon: SquareGanttChart, ActiveIcon: TimelineActiveIcon },
+  { id: "crm",      label: "CRM",           Icon: Files            },
+  { id: "fleet",    label: "Fleet",         Icon: FleetIcon        },
+  { id: "route",    label: "Plan route",    Icon: Map              },
+  { id: "reports",  label: "Reports",       Icon: BarChart3        },
 ];
 
 // ─── Navbar ────────────────────────────────────────────────────────────────────
@@ -228,11 +74,13 @@ export function Navbar({
   onActiveChange: (id: string) => void;
 }) {
   return (
-    <nav className="flex flex-col items-center justify-between shrink-0 h-full w-12 bg-muted border-r border-border">
+    <nav className="flex flex-col items-center justify-between shrink-0 h-full w-12 bg-muted border-r border-border/50">
       {/* Icon list */}
       <div className="flex flex-col items-center gap-3 px-2 pb-2" style={{ paddingTop: "16px" }}>
-        {NAV_ITEMS.map(({ id, label, Icon }) => {
+        {NAV_ITEMS.map(({ id, label, Icon, ActiveIcon, fillOnActive }) => {
           const isActive = activeId === id;
+          const filled = isActive && fillOnActive;
+          const DisplayIcon = isActive && ActiveIcon ? ActiveIcon : Icon;
           return (
             <button
               key={id}
@@ -242,10 +90,13 @@ export function Navbar({
                 "relative flex items-center justify-center size-8 rounded-md shrink-0 cursor-pointer",
                 "transition-colors duration-150 ease-in-out",
                 "active:opacity-70",
-                isActive ? "bg-input" : "hover:bg-input/50"
+                isActive ? "bg-input text-foreground" : "text-muted-foreground hover:bg-input/50 hover:text-foreground"
               )}
             >
-              <Icon active={isActive} />
+              <DisplayIcon
+                className={cn("size-4", filled && "[&_path]:fill-current [&_path]:stroke-none")}
+                strokeWidth={isActive ? 2.5 : 1.75}
+              />
             </button>
           );
         })}
