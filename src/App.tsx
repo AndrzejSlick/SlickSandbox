@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import './App.css';
 import { Navbar } from './components/Navbar';
-import { AiChat } from './components/AiChat';
 import { TopBar } from './components/TopBar';
 import { DocumentCard } from './components/DocumentCard';
 import { DocumentSidebar } from './components/DocumentSidebar';

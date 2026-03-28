@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Sparkles, Loader2, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -12,32 +12,9 @@ type AiMessage = {
   text: string;
 };
 
-// ─── AI Insights card ─────────────────────────────────────────────────────────
-
-const AI_INSIGHTS = [
-  'Monitoruję stan paliwa, pozostało 80%',
-  'Kierowca jedzie wytyczoną trasą',
-  'Kierowca miał 30 min postój 12:15-12:45',
-];
-
-function InsightsCard() {
-  return (
-    <div className="mx-3 mt-3 mb-0 shrink-0">
-      <div className="bg-white border border-border rounded-lg px-3 py-2.5 flex flex-col gap-1.5">
-        {AI_INSIGHTS.map((insight, i) => (
-          <div key={i} className="flex items-start gap-2">
-            <Sparkles className="size-3.5 text-purple-600 shrink-0 mt-0.5" />
-            <p className="text-xs text-purple-600 leading-4">{insight}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ─── Alert message ────────────────────────────────────────────────────────────
 
-function AlertMessage({ time, text, button }: { time: string; text: string; button?: string }) {
+function AlertMessage({ text, button }: { text: string; button?: string }) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-1">
@@ -126,7 +103,6 @@ export function ChatAiPanel() {
       <div className="flex-1 min-h-0 overflow-y-auto flex flex-col justify-end px-3 pt-3 pb-2 gap-4">
         {/* Static alert messages */}
         <AlertMessage
-          time="09:48"
           text="Kierowca jest spóźniony o 3 minuty (pozostało 394km)"
           button="Show on map"
         />
