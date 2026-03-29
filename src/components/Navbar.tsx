@@ -54,10 +54,11 @@ type NavItemConfig = {
   Icon: LucideIcon | React.ComponentType<{ className?: string; strokeWidth?: number }>;
   ActiveIcon?: React.ComponentType<{ className?: string }>;
   fillOnActive?: boolean;
+  badge?: boolean;
 };
 
 const NAV_ITEMS: NavItemConfig[] = [
-  { id: "chat",     label: "Chat",          Icon: MessageCircle,    fillOnActive: true },
+  { id: "chat",     label: "Chat",          Icon: MessageCircle,    fillOnActive: true, badge: true },
   { id: "timeline", label: "Timeline",      Icon: SquareGanttChart, ActiveIcon: TimelineActiveIcon },
   { id: "crm",      label: "CRM",           Icon: Files            },
   { id: "fleet",    label: "Fleet",         Icon: FleetIcon        },
@@ -77,7 +78,7 @@ export function Navbar({
     <nav className="flex flex-col items-center justify-between shrink-0 h-full w-12 bg-muted border-r border-border/50">
       {/* Icon list */}
       <div className="flex flex-col items-center gap-3 px-2 pb-2" style={{ paddingTop: "16px" }}>
-        {NAV_ITEMS.map(({ id, label, Icon, ActiveIcon, fillOnActive }) => {
+        {NAV_ITEMS.map(({ id, label, Icon, ActiveIcon, fillOnActive, badge }) => {
           const isActive = activeId === id;
           const filled = isActive && fillOnActive;
           const DisplayIcon = isActive && ActiveIcon ? ActiveIcon : Icon;
@@ -97,6 +98,9 @@ export function Navbar({
                 className={cn("size-4", filled && "[&_path]:fill-current [&_path]:stroke-none")}
                 strokeWidth={isActive ? 2.5 : 1.75}
               />
+              {badge && (
+                <span className="absolute top-1 right-1 size-1.5 rounded-full bg-blue-600" />
+              )}
             </button>
           );
         })}
