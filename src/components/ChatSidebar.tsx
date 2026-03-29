@@ -45,6 +45,7 @@ const DRIVERS: DriverEntry[] = [
     name: 'Feliks Solovev',
     lastMessage: 'Cześć! Jedź na załadunek na autostradę A1',
     time: '14:33',
+    unread: 1,
     chips: [{ type: 'distance', label: '80 km' }, { type: 'route', label: 'On Route' }],
   },
   {
@@ -81,6 +82,41 @@ const DRIVERS: DriverEntry[] = [
     lastMessage: 'Załadunek jest gotowy, gdzie dziś jedziesz?',
     time: 'Mar 24',
     chips: [{ type: 'distance', label: '40 km' }],
+  },
+  {
+    id: 'roman',
+    name: 'Roman Marczewski',
+    lastMessage: 'Jestem na miejscu, czekam na rozładunek.',
+    time: 'Mar 23',
+    chips: [{ type: 'distance', label: '310 km' }, { type: 'route', label: 'On Route' }],
+  },
+  {
+    id: 'andriy',
+    name: 'Andriy Novak',
+    lastMessage: 'Przekroczyłem granicę, wszystko ok.',
+    time: 'Mar 22',
+    chips: [{ type: 'distance', label: '520 km' }, { type: 'status', label: 'Na trasie' }],
+  },
+  {
+    id: 'tomasz',
+    name: 'Tomasz Piątek',
+    lastMessage: 'Opóźnienie ok 2h ze względu na korek.',
+    time: 'Mar 21',
+    chips: [{ type: 'distance', label: '180 km' }, { type: 'alert', label: 'Opóźnienie' }],
+  },
+  {
+    id: 'kamil',
+    name: 'Kamil Przystupa',
+    lastMessage: 'Dobra, jadę na załadunek jutro rano.',
+    time: 'Mar 20',
+    chips: [{ type: 'distance', label: '95 km' }],
+  },
+  {
+    id: 'karol',
+    name: 'Karol Staroscic',
+    lastMessage: 'Temperatura ładunku w normie.',
+    time: 'Mar 19',
+    chips: [{ type: 'distance', label: '740 km' }, { type: 'temp', label: '-18°' }, { type: 'route', label: 'On Route' }],
   },
 ];
 
@@ -148,7 +184,7 @@ function GroupTile({ group }: { group: GroupEntry }) {
   return (
     <button className="w-full text-left flex flex-col gap-1 px-2 py-2 rounded-md hover:bg-input/50 transition-colors">
       <div className="flex items-center justify-between w-full">
-        <span className="text-xs font-medium text-foreground truncate">{group.name}</span>
+        <span className="text-sm font-medium text-foreground truncate">{group.name}</span>
         <span className="text-xs text-muted-foreground shrink-0 ml-2">{group.time}</span>
       </div>
       <span className="text-xs text-muted-foreground truncate w-full">{group.lastMessage}</span>
@@ -166,12 +202,19 @@ function DriverTile({ driver, selected, onClick }: { driver: DriverEntry; select
       )}
     >
       <div className="flex items-center justify-between w-full gap-1">
-        <span className="text-xs font-medium text-foreground truncate flex-1 min-w-0">{driver.name}</span>
-        <span className="text-xs shrink-0 text-muted-foreground">{driver.time}</span>
+        <span className="text-sm font-medium text-foreground truncate flex-1 min-w-0">{driver.name}</span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span className={cn('text-xs', driver.unread ? 'text-blue-600 font-medium' : 'text-muted-foreground')}>{driver.time}</span>
+          {driver.unread ? (
+            <span className="inline-flex items-center justify-center size-4 rounded-full bg-blue-600 text-white text-[10px] font-semibold leading-none">
+              {driver.unread}
+            </span>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex items-center gap-1 w-full">
-        <span className="text-xs text-muted-foreground truncate flex-1 min-w-0">{driver.lastMessage}</span>
+        <span className={cn('text-xs truncate flex-1 min-w-0', driver.unread ? 'text-foreground font-medium' : 'text-muted-foreground')}>{driver.lastMessage}</span>
       </div>
 
       {driver.chips.length > 0 && (

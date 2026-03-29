@@ -8,6 +8,7 @@ import { RouteSidebar } from './components/RouteSidebar';
 import { ChatSidebar } from './components/ChatSidebar';
 import { ChatMain } from './components/ChatMain';
 import { ChatAiPanel } from './components/ChatAiPanel';
+import { Timeline } from './components/Timeline';
 
 function ResizableDivider({
   onDelta,
@@ -84,13 +85,19 @@ function App() {
 
       {activeId === 'timeline' && (
         <>
-          <div className="flex flex-col w-[280px] h-full bg-muted shrink-0">
-            <div className="flex items-center justify-between px-3 pt-4 pb-2 shrink-0">
+          <div className="flex flex-col flex-1 min-w-0">
+            {/* Title row */}
+            <div className="flex items-center px-3 pt-4 pb-2 shrink-0">
               <span className="text-xl font-semibold text-foreground">Timeline</span>
             </div>
+            {/* White card */}
+            <div className="flex-1 min-h-0 flex pl-2 pb-2">
+              <div className="flex flex-col flex-1 min-w-0 h-full overflow-hidden rounded-xl border border-border/50 bg-white shadow-xs" style={{ borderWidth: '0.5px' }}>
+                <Timeline />
+              </div>
+            </div>
           </div>
-          <div className="flex-1 min-w-0" />
-          <ChatAiPanel />
+          <ChatAiPanel showAutomations={false} />
         </>
       )}
 
@@ -98,7 +105,7 @@ function App() {
         <>
           <ChatSidebar selectedId={selectedDriverId} onSelect={setSelectedDriverId} />
           <div className="flex-1 min-w-0 flex py-2">
-            <ChatMain />
+            <ChatMain driverId={selectedDriverId} />
           </div>
           <ChatAiPanel />
         </>
