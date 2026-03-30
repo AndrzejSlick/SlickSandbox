@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Map, { Source, Layer, Marker } from 'react-map-gl/maplibre';
-import type { LineLayer, MapRef } from 'react-map-gl/maplibre';
+import type { MapRef } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Search, MoreVertical, Paperclip, Smile, ArrowUp, Plus, Phone, ChevronDown, Locate, ShoppingCart, PackageCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -363,7 +363,7 @@ export function ChatMap({ data }: { data?: DriverData }) {
               type: 'line',
               layout: { 'line-cap': 'round', 'line-join': 'round' },
               paint: { 'line-color': '#9ca3af', 'line-width': 6 },
-            } as LineLayer)} />
+            })} />
           </Source>
 
           {/* Ahead segment — green border + blue inner */}
@@ -373,13 +373,13 @@ export function ChatMap({ data }: { data?: DriverData }) {
               type: 'line',
               layout: { 'line-cap': 'round', 'line-join': 'round' },
               paint: { 'line-color': '#4ade80', 'line-width': 10 },
-            } as LineLayer)} />
+            })} />
             <Layer {...({
               id: 'route-ahead-line',
               type: 'line',
               layout: { 'line-cap': 'round', 'line-join': 'round' },
               paint: { 'line-color': '#1d4ed8', 'line-width': 4 },
-            } as LineLayer)} />
+            })} />
           </Source>
 
           {/* Start marker */}
