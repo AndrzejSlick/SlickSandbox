@@ -211,11 +211,11 @@ export function ChatMessages({ data }: { data?: DriverData }) {
             attributionControl={false}
           >
             <Source id="float-done" type="geojson" data={{ type: 'Feature', geometry: { type: 'LineString', coordinates: [[20.0,50.05],[19.45,50.10],[18.95,50.25],[18.68,50.28],[18.52,49.95],[18.15,49.75],[17.88,49.53],[17.45,49.47]] }, properties: {} }}>
-              <Layer {...({ id: 'float-done-line', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#9ca3af', 'line-width': 3 } } as LineLayer)} />
+              <Layer {...({ id: 'float-done-line', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#9ca3af', 'line-width': 3 } } as Parameters<typeof Layer>[0])} />
             </Source>
             <Source id="float-ahead" type="geojson" data={{ type: 'Feature', geometry: { type: 'LineString', coordinates: [[17.45,49.47],[17.10,49.30],[16.60,49.19],[15.95,49.48],[15.55,49.60],[15.10,49.85],[14.75,50.00],[14.42,50.08]] }, properties: {} }}>
-              <Layer {...({ id: 'float-ahead-border', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#4ade80', 'line-width': 6 } } as LineLayer)} />
-              <Layer {...({ id: 'float-ahead-line', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#1d4ed8', 'line-width': 2.5 } } as LineLayer)} />
+              <Layer {...({ id: 'float-ahead-border', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#4ade80', 'line-width': 6 } } as Parameters<typeof Layer>[0])} />
+              <Layer {...({ id: 'float-ahead-line', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#1d4ed8', 'line-width': 2.5 } } as Parameters<typeof Layer>[0])} />
             </Source>
             <Marker longitude={17.45} latitude={49.47} anchor="center">
               <div className="size-3 rounded-full bg-green-500 border-2 border-white shadow" />

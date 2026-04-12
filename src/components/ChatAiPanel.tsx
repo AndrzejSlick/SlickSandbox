@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
-import { ChatMap } from '@/components/ChatMain';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
