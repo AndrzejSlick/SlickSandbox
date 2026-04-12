@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { ChatMap } from '@/components/ChatMain';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -99,7 +100,7 @@ function DriversTable() {
 
 // ─── ChatAiPanel ─────────────────────────────────────────────────────────────
 
-export function ChatAiPanel({ showAutomations = true }: { showAutomations?: boolean }) {
+export function ChatAiPanel({ showAutomations = true, width = 720 }: { showAutomations?: boolean; width?: number }) {
   const [value, setValue] = useState('');
   const [messages, setMessages] = useState<AiMessage[]>([]);
   const [isThinking, setIsThinking] = useState(false);
@@ -132,7 +133,7 @@ export function ChatAiPanel({ showAutomations = true }: { showAutomations?: bool
   };
 
   return (
-    <div className="flex flex-col w-[328px] h-full bg-muted shrink-0">
+    <div className="flex flex-col h-full bg-muted shrink-0" style={{ width }}>
       {/* Automations card */}
       {showAutomations && <AutomationsCard />}
 

@@ -71,12 +71,17 @@ function App() {
   const [selectedDriverId, setSelectedDriverId] = useState('szymon');
   const [sidebarContent, setSidebarContent] = useState<SidebarContent>(null);
   const [sidebarWidth, setSidebarWidth] = useState(480);
+  const [aiPanelWidth, setAiPanelWidth] = useState(360);
   const [isResizing, setIsResizing] = useState(false);
 
   const sidebarOpen = sidebarContent !== null;
 
   const handleSidebarResize = useCallback((delta: number) => {
     setSidebarWidth(w => Math.max(280, Math.min(900, w + delta)));
+  }, []);
+
+  const handleAiPanelResize = useCallback((delta: number) => {
+    setAiPanelWidth(w => Math.max(260, Math.min(640, w + delta)));
   }, []);
 
   return (

@@ -199,9 +199,29 @@ export function ChatMessages({ data }: { data?: DriverData }) {
   };
 
   return (
-    <div className="flex flex-col flex-1 min-w-0 h-full border-r border-border overflow-hidden">
+    <div className="flex flex-col flex-1 min-w-0 h-full overflow-hidden">
       {/* Messages */}
-      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col px-3 pt-4 pb-2 gap-2">
+      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col px-3 pt-4 pb-2 gap-2 relative">
+        {/* Floating mini map */}
+        <div className="absolute top-3 right-3 z-20 w-48 h-36 rounded-xl overflow-hidden shadow-lg border border-border/60 ring-1 ring-black/5">
+          <Map
+            initialViewState={{ longitude: 17.2, latitude: 50.3, zoom: 5.5 }}
+            style={{ width: '100%', height: '100%' }}
+            mapStyle="https://tiles.openfreemap.org/styles/liberty"
+            attributionControl={false}
+          >
+            <Source id="float-done" type="geojson" data={{ type: 'Feature', geometry: { type: 'LineString', coordinates: [[20.0,50.05],[19.45,50.10],[18.95,50.25],[18.68,50.28],[18.52,49.95],[18.15,49.75],[17.88,49.53],[17.45,49.47]] }, properties: {} }}>
+              <Layer {...({ id: 'float-done-line', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#9ca3af', 'line-width': 3 } } as LineLayer)} />
+            </Source>
+            <Source id="float-ahead" type="geojson" data={{ type: 'Feature', geometry: { type: 'LineString', coordinates: [[17.45,49.47],[17.10,49.30],[16.60,49.19],[15.95,49.48],[15.55,49.60],[15.10,49.85],[14.75,50.00],[14.42,50.08]] }, properties: {} }}>
+              <Layer {...({ id: 'float-ahead-border', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#4ade80', 'line-width': 6 } } as LineLayer)} />
+              <Layer {...({ id: 'float-ahead-line', type: 'line', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#1d4ed8', 'line-width': 2.5 } } as LineLayer)} />
+            </Source>
+            <Marker longitude={17.45} latitude={49.47} anchor="center">
+              <div className="size-3 rounded-full bg-green-500 border-2 border-white shadow" />
+            </Marker>
+          </Map>
+        </div>
         <div className="flex-1" />
         {messages.map((msg, i) => {
           const prev = messages[i - 1];
@@ -475,7 +495,6 @@ export function ChatMain({ driverId }: { driverId?: string }) {
       <ChatHeader data={data} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <ChatMessages data={data} />
-        <ChatMap data={data} />
       </div>
     </div>
   );
