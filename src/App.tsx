@@ -1,14 +1,16 @@
 import { useState, useRef, useCallback } from 'react';
 import './App.css';
+import { ChevronDown } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { TopBar } from './components/TopBar';
 import { DocumentCard } from './components/DocumentCard';
 import { DocumentSidebar } from './components/DocumentSidebar';
 import { RouteSidebar } from './components/RouteSidebar';
 import { ChatSidebar } from './components/ChatSidebar';
-import { ChatMain } from './components/ChatMain';
-import { ChatAiPanel } from './components/ChatAiPanel';
+import { ChatMessages, ChatMap, ChatStops, DRIVER_DATA } from './components/ChatMain';
+import { ChatAiPanel, AutomationsCard } from './components/ChatAiPanel';
 import { Timeline } from './components/Timeline';
+import { cn } from './lib/utils';
 
 function ResizableDivider({
   onDelta,
@@ -57,9 +59,72 @@ function ResizableDivider({
         className="transition-all duration-150 ease-in-out"
         style={{
           width: active ? '2px' : '1px',
-          backgroundColor: active ? '#2563EB' : 'var(--border)',
+          backgroundColor: active ? '#2563EB' : 'transparent',
         }}
       />
+    </div>
+  );
+}
+
+// ─── Collapsible widget ────────────────────────────────────────────────────────
+
+function Widget({ title, defaultOpen = true, initialHeight, children }: {
+  title: string;
+  defaultOpen?: boolean;
+  initialHeight?: number;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  const [height, setHeight] = useState(initialHeight);
+  const [resizing, setResizing] = useState(false);
+
+  const handleResizeMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const startY = e.clientY;
+    const startH = height ?? 200;
+    setResizing(true);
+
+    const onMove = (e: MouseEvent) => {
+      setHeight(Math.max(80, startH + (e.clientY - startY)));
+    };
+    const onUp = () => {
+      setResizing(false);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  };
+
+  return (
+    <div className="rounded-xl border border-border/50 bg-white shadow-xs overflow-hidden shrink-0" style={{ borderWidth: '0.5px' }}>
+      <button
+        className="w-full flex items-center justify-between px-3 h-10 hover:bg-muted/30 transition-colors"
+        onClick={() => setOpen(o => !o)}
+      >
+        <span className="text-sm font-medium text-foreground">{title}</span>
+        <ChevronDown className={cn('size-4 text-muted-foreground transition-transform duration-200', open && 'rotate-180')} />
+      </button>
+      {open && (
+        <>
+          <div
+            className="border-t border-border overflow-hidden"
+            style={height !== undefined ? { height } : {}}
+          >
+            {children}
+          </div>
+          {/* Vertical resize handle */}
+          <div
+            className={cn(
+              'h-2 cursor-row-resize flex items-center justify-center transition-colors group',
+              resizing ? 'bg-blue-50' : 'hover:bg-blue-50',
+            )}
+            onMouseDown={handleResizeMouseDown}
+          >
+            <div className={cn('w-6 h-0.5 rounded-full transition-colors', resizing ? 'bg-blue-400' : 'bg-transparent group-hover:bg-blue-400')} />
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -71,12 +136,17 @@ function App() {
   const [selectedDriverId, setSelectedDriverId] = useState('szymon');
   const [sidebarContent, setSidebarContent] = useState<SidebarContent>(null);
   const [sidebarWidth, setSidebarWidth] = useState(480);
+  const [widgetsPanelWidth, setWidgetsPanelWidth] = useState(390);
   const [isResizing, setIsResizing] = useState(false);
 
   const sidebarOpen = sidebarContent !== null;
 
   const handleSidebarResize = useCallback((delta: number) => {
     setSidebarWidth(w => Math.max(280, Math.min(900, w + delta)));
+  }, []);
+
+  const handleWidgetsPanelResize = useCallback((delta: number) => {
+    setWidgetsPanelWidth(w => Math.max(280, Math.min(700, w + delta)));
   }, []);
 
 
@@ -105,10 +175,28 @@ function App() {
       {activeId === 'chat' && (
         <>
           <ChatSidebar selectedId={selectedDriverId} onSelect={setSelectedDriverId} />
-          <div className="flex-1 min-w-0 flex py-2">
-            <ChatMain driverId={selectedDriverId} />
+          <div className="w-px shrink-0 bg-border/50" />
+          <div className="flex flex-1 min-w-0 h-full" style={{ backgroundColor: '#FAFAFA' }}>
+          <ChatAiPanel showAutomations={false} />
+          {/* Right widgets panel */}
+          <ResizableDivider onDelta={handleWidgetsPanelResize} onDragChange={setIsResizing} />
+          <div className="shrink-0 flex flex-col gap-2 p-2 overflow-y-auto" style={{ width: widgetsPanelWidth }}>
+            <Widget title="Automations">
+              <AutomationsCard />
+            </Widget>
+            <Widget title={`Chat · ${DRIVER_DATA[selectedDriverId]?.name ?? 'Driver'}`} initialHeight={300}>
+              <div className="h-full overflow-hidden">
+                <ChatMessages />
+              </div>
+            </Widget>
+            <Widget title="Route Map" initialHeight={420}>
+              <div className="h-[260px] overflow-hidden shrink-0">
+                <ChatMap compact />
+              </div>
+              <ChatStops />
+            </Widget>
           </div>
-          <ChatAiPanel />
+          </div>
         </>
       )}
 

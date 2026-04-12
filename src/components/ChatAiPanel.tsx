@@ -33,9 +33,9 @@ const AUTOMATIONS = [
   'Kierowca miał 30 min postój 12:15-12:45',
 ];
 
-function AutomationsCard() {
+export function AutomationsCard() {
   return (
-    <div className="shrink-0 mx-3 mt-3 rounded-md border border-border bg-white p-3 flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2 p-3">
       {AUTOMATIONS.map((text, i) => (
         <div key={i} className="flex items-center gap-2">
           <SparkleIcon className="text-purple-700 shrink-0" />
@@ -132,12 +132,19 @@ export function ChatAiPanel({ showAutomations = true, width = 720 }: { showAutom
   };
 
   return (
-    <div className="flex flex-col h-full bg-muted shrink-0" style={{ width }}>
+    <div className="flex flex-col flex-1 min-w-0 h-full bg-transparent" style={width !== 720 ? { width } : {}}>
       {/* Automations card */}
-      {showAutomations && <AutomationsCard />}
+      {showAutomations && (
+        <div className="flex justify-center">
+          <div className="w-full max-w-xl">
+            <AutomationsCard />
+          </div>
+        </div>
+      )}
 
       {/* Scrollable content area */}
-      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col justify-end px-3 pt-3 pb-2 gap-4">
+      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col justify-end items-center px-3 pt-3 pb-2 gap-4">
+      <div className="w-full max-w-xl flex flex-col gap-4">
         {/* Static alert messages */}
         <AlertMessage
           text="Kierowca jest spóźniony o 3 minuty (pozostało 394km)"
@@ -181,9 +188,11 @@ export function ChatAiPanel({ showAutomations = true, width = 720 }: { showAutom
 
         <div ref={bottomRef} />
       </div>
+      </div>
 
       {/* Input */}
-      <div className="shrink-0 px-4 pb-4 pt-2">
+      <div className="shrink-0 flex justify-center px-4 pb-4 pt-2">
+      <div className="w-full max-w-xl">
         <div className="relative border border-input rounded-md bg-white shadow-xs">
           <Textarea
             value={value}
@@ -204,6 +213,7 @@ export function ChatAiPanel({ showAutomations = true, width = 720 }: { showAutom
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

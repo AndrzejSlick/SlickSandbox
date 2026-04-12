@@ -255,7 +255,7 @@ export function ChatSidebar({
     <div className="flex flex-col w-[280px] h-full bg-muted shrink-0">
       {/* Header */}
       <div className="flex items-center justify-between px-3 pt-4 pb-2 shrink-0">
-        <span className="text-xl font-semibold text-foreground">Chat</span>
+        <span className="text-xl font-semibold text-foreground">Chats</span>
         <div className="flex items-center gap-0.5">
           <Button variant="ghost" size="icon" className="size-7 rounded hover:bg-input/50">
             <Archive className="size-4" />
