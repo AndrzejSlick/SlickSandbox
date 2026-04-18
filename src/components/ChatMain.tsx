@@ -44,7 +44,7 @@ type DriverData = {
 
 // ─── Per-driver data ──────────────────────────────────────────────────────────
 
-const DRIVER_DATA: Record<string, DriverData> = {
+export const DRIVER_DATA: Record<string, DriverData> = {
   szymon: {
     name: 'Szymon Pietrov',
     plate: 'KK 57112 (648 394 km)',
@@ -199,7 +199,7 @@ export function ChatMessages({ data }: { data?: DriverData }) {
   };
 
   return (
-    <div className="flex flex-col flex-1 min-w-0 h-full border-r border-border overflow-hidden">
+    <div className="flex flex-col flex-1 min-w-0 h-full overflow-hidden">
       {/* Messages */}
       <div className="flex-1 min-h-0 overflow-y-auto flex flex-col px-3 pt-4 pb-2 gap-2">
         <div className="flex-1" />
@@ -290,9 +290,45 @@ function StopIconEl({ icon }: { icon: StopIcon }) {
   return                         <PackageCheck  className="size-4 text-muted-foreground" />;
 }
 
+// ─── Stops table ──────────────────────────────────────────────────────────────
+
+export function ChatStops({ data }: { data?: DriverData }) {
+  const resolved = data ?? DRIVER_DATA[FALLBACK_DRIVER_ID];
+  return (
+    <div className="flex flex-col pb-2">
+      <div className="mx-2 mt-2 rounded-md border border-border overflow-hidden bg-white">
+        <Table>
+          <TableBody>
+            {resolved.stops.map((stop, i) => (
+              <TableRow key={i} className={i === resolved.stops.length - 1 ? 'border-0' : ''}>
+                <TableCell className="py-2 pl-2 pr-1 w-8">
+                  <StopIconEl icon={stop.icon} />
+                </TableCell>
+                <TableCell className="py-2 px-2 text-xs text-foreground">{stop.label}</TableCell>
+                <TableCell className="py-2 px-2 text-right w-20">
+                  {stop.distance && (
+                    <Badge variant="outline" className="gap-1 px-1.5 py-0 h-5 text-green-700 border-green-200 bg-green-50 font-medium text-xs">
+                      {stop.distance}
+                    </Badge>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="px-1 pt-1">
+        <Button variant="ghost" className="h-7 px-1.5 text-xs text-muted-foreground font-normal gap-1">
+          <Plus className="size-3.5" /> Add new stop
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 // ─── Map + route area ─────────────────────────────────────────────────────────
 
-export function ChatMap({ data }: { data?: DriverData }) {
+export function ChatMap({ data, compact }: { data?: DriverData; compact?: boolean }) {
   const resolved = data ?? DRIVER_DATA[FALLBACK_DRIVER_ID];
   const mapRef = useRef<MapRef>(null);
   const isFirst = useRef(true);
@@ -419,8 +455,8 @@ export function ChatMap({ data }: { data?: DriverData }) {
         </Map>
       </div>
 
-      {/* Route config panel */}
-      <div className="shrink-0 bg-white border-t border-border flex flex-col pb-3">
+      {/* Route config panel — hidden in compact mode */}
+      {!compact && <div className="shrink-0 bg-white border-t border-border flex flex-col pb-3">
         <div className="flex gap-2 items-center px-3 pt-3 pb-1">
           <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5 shadow-xs">
             Avoid <ChevronDown className="size-3" />
@@ -460,7 +496,7 @@ export function ChatMap({ data }: { data?: DriverData }) {
             <Plus className="size-3.5" /> Add new stop
           </Button>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
@@ -475,7 +511,6 @@ export function ChatMain({ driverId }: { driverId?: string }) {
       <ChatHeader data={data} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <ChatMessages data={data} />
-        <ChatMap data={data} />
       </div>
     </div>
   );
