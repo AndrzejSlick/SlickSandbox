@@ -7,10 +7,11 @@ import {
   BarChart3,
   type LucideIcon,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
-// ─── Custom Timeline active icon ───────────────────────────────────────────────
 function TimelineActiveIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -27,7 +28,6 @@ function TimelineActiveIcon({ className }: { className?: string }) {
   );
 }
 
-// ─── Custom Fleet icon ─────────────────────────────────────────────────────────
 function FleetIcon({ className, strokeWidth = 1.75 }: { className?: string; strokeWidth?: number }) {
   return (
     <svg
@@ -47,7 +47,6 @@ function FleetIcon({ className, strokeWidth = 1.75 }: { className?: string; stro
   );
 }
 
-// ─── Nav items config ──────────────────────────────────────────────────────────
 type NavItemConfig = {
   id: string;
   label: string;
@@ -58,15 +57,14 @@ type NavItemConfig = {
 };
 
 const NAV_ITEMS: NavItemConfig[] = [
-  { id: "chat",     label: "Chat",          Icon: MessageCircle,    fillOnActive: true, badge: true },
-  { id: "timeline", label: "Timeline",      Icon: SquareGanttChart, ActiveIcon: TimelineActiveIcon },
-  { id: "crm",      label: "CRM",           Icon: Files            },
-  { id: "fleet",    label: "Fleet",         Icon: FleetIcon        },
-  { id: "route",    label: "Plan route",    Icon: Map              },
-  { id: "reports",  label: "Reports",       Icon: BarChart3        },
+  { id: "chat",     label: "Chat",       Icon: MessageCircle,    fillOnActive: true, badge: true },
+  { id: "timeline", label: "Timeline",   Icon: SquareGanttChart, ActiveIcon: TimelineActiveIcon },
+  { id: "crm",      label: "CRM",        Icon: Files },
+  { id: "fleet",    label: "Fleet",      Icon: FleetIcon },
+  { id: "route",    label: "Plan route", Icon: Map },
+  { id: "reports",  label: "Reports",    Icon: BarChart3 },
 ];
 
-// ─── Navbar ────────────────────────────────────────────────────────────────────
 export function Navbar({
   activeId,
   onActiveChange,
@@ -76,37 +74,42 @@ export function Navbar({
 }) {
   return (
     <nav className="flex flex-col items-center justify-between shrink-0 h-full w-12 bg-muted border-r border-border/50">
-      {/* Icon list */}
       <div className="flex flex-col items-center gap-3 px-2 pb-2" style={{ paddingTop: "16px" }}>
         {NAV_ITEMS.map(({ id, label, Icon, ActiveIcon, fillOnActive, badge }) => {
           const isActive = activeId === id;
           const filled = isActive && fillOnActive;
           const DisplayIcon = isActive && ActiveIcon ? ActiveIcon : Icon;
           return (
-            <button
-              key={id}
-              aria-label={label}
-              onClick={() => onActiveChange(id)}
-              className={cn(
-                "relative flex items-center justify-center size-8 rounded-md shrink-0 cursor-pointer",
-                "transition-colors duration-150 ease-in-out",
-                "active:opacity-70",
-                isActive ? "bg-input text-foreground" : "text-muted-foreground hover:bg-input/50 hover:text-foreground"
-              )}
-            >
-              <DisplayIcon
-                className={cn("size-4", filled && "[&_path]:fill-current [&_path]:stroke-none")}
-                strokeWidth={isActive ? 2.5 : 1.75}
-              />
-              {badge && (
-                <span className="absolute top-1 right-1 size-1.5 rounded-full bg-blue-600" />
-              )}
-            </button>
+            <Tooltip key={id}>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label={label}
+                  onClick={() => onActiveChange(id)}
+                  className={cn(
+                    "relative size-8 rounded-md shrink-0",
+                    "transition-colors duration-150 ease-in-out active:opacity-70",
+                    isActive
+                      ? "bg-input text-foreground hover:bg-input"
+                      : "text-muted-foreground hover:bg-input/50 hover:text-foreground"
+                  )}
+                >
+                  <DisplayIcon
+                    className={cn("size-4", filled && "[&_path]:fill-current [&_path]:stroke-none")}
+                    strokeWidth={isActive ? 2.5 : 1.75}
+                  />
+                  {badge && (
+                    <span className="absolute top-1 right-1 size-1.5 rounded-full bg-blue-600" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">{label}</TooltipContent>
+            </Tooltip>
           );
         })}
       </div>
 
-      {/* Avatar */}
       <div className="p-2 w-full">
         <Avatar>
           <AvatarFallback className="bg-green-200 text-foreground text-sm font-normal">

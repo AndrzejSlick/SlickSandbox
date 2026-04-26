@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import './App.css';
 import { ChevronDown } from 'lucide-react';
+import { TooltipProvider } from './components/ui/tooltip';
 import { Navbar } from './components/Navbar';
 import { TopBar } from './components/TopBar';
 import { DocumentCard } from './components/DocumentCard';
@@ -151,6 +152,7 @@ function App() {
 
 
   return (
+    <TooltipProvider delayDuration={300}>
     <div className="flex h-screen w-screen overflow-hidden bg-muted">
       <Navbar activeId={activeId} onActiveChange={setActiveId} />
 
@@ -254,6 +256,7 @@ function App() {
         <div className="flex-1 min-w-0 bg-background" />
       )}
     </div>
+    </TooltipProvider>
   );
 }
 
