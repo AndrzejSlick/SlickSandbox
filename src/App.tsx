@@ -152,7 +152,7 @@ function App() {
 
 
   return (
-    <TooltipProvider delayDuration={300}>
+    <TooltipProvider delay={300}>
     <div className="flex h-screen w-screen overflow-hidden bg-muted">
       <Navbar activeId={activeId} onActiveChange={setActiveId} />
 

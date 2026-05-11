@@ -81,7 +81,7 @@ export function Navbar({
           const DisplayIcon = isActive && ActiveIcon ? ActiveIcon : Icon;
           return (
             <Tooltip key={id}>
-              <TooltipTrigger asChild>
+              <TooltipTrigger>
                 <Button
                   variant="ghost"
                   size="icon"
